@@ -1,9 +1,27 @@
+# Task 1, 2, 3, 4: How to check the app successfully runs
+# emotion_detector("I love this new technology.")
+
+# Task 5: How to check the app successfully runs
+# emotion_detector("I hate working long hours.")
+
+"""
+This is the test file of the emotion_detector() function.
+"""
+
 from EmotionDetection.emotion_detection import emotion_detector
+import unittest
 
-# Task 1: How to check the app successfully runs
-text = "I love this new technology."
-result = emotion_detector("I love this new technology.")
+class TestEmotionDetector(unittest.TestCase):
+    def test_emotion_detector(self):
+        result_1 = emotion_detector('I am glad this happened')
+        self.assertEqual(result_1['dominant_emotion'], 'joy')
+        result_2 = emotion_detector('I am really mad about this')
+        self.assertEqual(result_2['dominant_emotion'], 'anger')
+        result_3 = emotion_detector('I feel disgusted just hearing about this')
+        self.assertEqual(result_3['dominant_emotion'], 'disgust')
+        result_4 = emotion_detector('I am so sad about this')
+        self.assertEqual(result_4['dominant_emotion'], 'sadness')
+        result_5 = emotion_detector('I am really afraid that this will happen')
+        self.assertEqual(result_5['dominant_emotion'], 'fear')
 
-print("Resultado de la detección de emociones:")
-if result.status == ""
-print(result)
+unittest.main()
