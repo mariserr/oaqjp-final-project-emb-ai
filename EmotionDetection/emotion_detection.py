@@ -27,20 +27,22 @@ def emotion_detector(text_to_analyze):
     # Convert the response text into a dictionary using the json library functions.
     responseFormated = json.loads(response.text)
 
-    # Extract the required set of emotions along with their scores
-    emotions = responseFormated['emotionPredictions'][0]['emotion']
+    print (response.status_code)
 
     # There is an error in the response
-    if  response.status_code == 400:
+    if  response.status_code != 200 :
         anger_score = None
         disgust_score = None
         fear_score = None
         joy_score = None
         sadness_score = None
-        dominant_emotion_key = None 
+        dominant_emotion_key = None
     
     # Response is OK (200)
     elif response.status_code == 200:
+        
+        # Extract the required set of emotions along with their scores
+        emotions = responseFormated['emotionPredictions'][0]['emotion']
 
         # anger_score = responseFormated["emotionPredictions"][0]["emotion"]["anger"]
         anger_score = emotions.get('anger', 0)
@@ -59,14 +61,14 @@ def emotion_detector(text_to_analyze):
         emotion_keys = ["anger", "disgust", "fear", "joy", "sadness"]
         dominant_emotion_key = emotion_keys[dominant_emotion_index]
 
-        # Modify the function to return the required output format
-        result = {
-            'anger': anger_score,
-            'disgust': disgust_score,
-            'fear': fear_score,
-            'joy': joy_score,
-            'sadness': sadness_score,
-            'dominant_emotion': dominant_emotion_key
-        }
+    # Modify the function to return the required output format
+    result = {
+        'anger': anger_score,
+        'disgust': disgust_score,
+        'fear': fear_score,
+        'joy': joy_score,
+        'sadness': sadness_score,
+        'dominant_emotion': dominant_emotion_key
+    }
 
     return result
